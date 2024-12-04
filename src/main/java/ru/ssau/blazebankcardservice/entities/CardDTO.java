@@ -1,5 +1,8 @@
 package ru.ssau.blazebankcardservice.entities;
 
+import lombok.Builder;
+
+@Builder
 public class CardDTO {
     private String id;
     private String userId;

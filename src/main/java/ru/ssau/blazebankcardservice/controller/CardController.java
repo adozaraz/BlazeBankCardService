@@ -15,16 +15,16 @@ public class CardController {
 
     @PostMapping("/save")
     public void createNewCard(@RequestBody CardDTO cardDTO) {
-        cardService.addNewCard(cardDTO);
+        cardService.addCard(cardDTO);
     }
 
     @GetMapping("/get/id")
     public CardDTO getCardById(@RequestParam UUID uuid) {
-        return cardService.getCardDTOById(uuid);
+        return cardService.getCardById(uuid);
     }
 
     @GetMapping("/get/userId")
     public CardDTO getCardByUserId(@RequestParam UUID userId) {
-        return cardService.getCardDTOByUserId(userId);
+        return cardService.getCardByUserId(userId);
     }
 }
