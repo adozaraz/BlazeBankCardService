@@ -8,6 +8,8 @@ import java.util.Optional;
 import java.util.UUID;
 
 @Repository
-public interface CardRepository extends CrudRepository<Card, UUID> {
-    Optional<Card> findCardByUserId(UUID userId);
+public interface CardRepository extends CrudRepository<Card, Integer> {
+    Optional<Card> findCardByUserId(Integer userId);
+
+    Optional<Card> findCardByCardNumberAndAccountNumber(String cardNumber, String accountNumber);
 }

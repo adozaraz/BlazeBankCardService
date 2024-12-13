@@ -1,7 +1,9 @@
 package ru.ssau.blazebankcardservice.entities;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.math.BigInteger;
@@ -11,13 +13,15 @@ import java.util.UUID;
 @Entity
 @Getter
 @Setter
+@AllArgsConstructor
+@NoArgsConstructor
 @Table(name = "card")
 public class Card {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private UUID id;
+    private Integer id;
 
-    private UUID userId;
+    private Integer userId;
 
     private String cardNumber;
 
@@ -34,4 +38,20 @@ public class Card {
     private BigInteger balance;
 
     private Boolean isBlocked;
+
+    @Override
+    public String toString() {
+        return "Card{" +
+                "id=" + id +
+                ", userId=" + userId +
+                ", cardNumber='" + cardNumber + '\'' +
+                ", accountNumber='" + accountNumber + '\'' +
+                ", expirationDate=" + expirationDate +
+                ", cardType='" + cardType + '\'' +
+                ", walletType='" + walletType + '\'' +
+                ", cvv=" + cvv +
+                ", balance=" + balance +
+                ", isBlocked=" + isBlocked +
+                '}';
+    }
 }
