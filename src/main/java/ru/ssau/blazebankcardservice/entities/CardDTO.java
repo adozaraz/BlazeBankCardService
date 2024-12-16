@@ -9,7 +9,7 @@ import lombok.Setter;
 @Setter
 public class CardDTO {
     private Integer id;
-    private Integer userId;
+    private String userId;
     private String cardNumber;
     private String accountNumber;
     private String expirationDate;

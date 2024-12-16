@@ -5,6 +5,9 @@ import org.springframework.web.bind.annotation.*;
 import ru.ssau.blazebankcardservice.entities.*;
 import ru.ssau.blazebankcardservice.service.CardService;
 
+import java.text.ParseException;
+import java.util.List;
+
 @RestController
 @RequestMapping("/card")
 public class CardController {
@@ -12,7 +15,7 @@ public class CardController {
     private CardService cardService;
 
     @PostMapping("/save")
-    public SuccessResponse createNewCard(@RequestBody CardDTO cardDTO) {
+    public SuccessResponse createNewCard(@RequestBody CardDTO cardDTO) throws ParseException {
         cardService.addCard(cardDTO);
         return SuccessResponse.builder().msg("Card created").build();
     }
@@ -23,7 +26,7 @@ public class CardController {
     }
 
     @GetMapping("/get/userId")
-    public CardDTO getCardByUserId(@RequestParam Integer userId) {
+    public CardDTO getCardByUserId(@RequestParam String userId) {
         return cardService.getCardByUserId(userId);
     }
 
@@ -35,5 +38,10 @@ public class CardController {
     @PostMapping("/balance/update")
     public BalanceUpdateDTO updateBalance(@RequestBody IncomingBalanceChangesDTO incomingBalanceChangesDTO) {
         return cardService.updateBalance(incomingBalanceChangesDTO);
+    }
+
+    @GetMapping("/get/cards")
+    public List<CardDTO> getAllUserCards() {
+        return cardService.getAllUserCards();
     }
 }

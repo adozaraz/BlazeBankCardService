@@ -4,12 +4,14 @@ import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 import ru.ssau.blazebankcardservice.entities.Card;
 
+import java.util.List;
 import java.util.Optional;
-import java.util.UUID;
 
 @Repository
 public interface CardRepository extends CrudRepository<Card, Integer> {
-    Optional<Card> findCardByUserId(Integer userId);
+    Optional<Card> findCardByUserId(String userId);
 
     Optional<Card> findCardByCardNumberAndAccountNumber(String cardNumber, String accountNumber);
+
+    List<Card> findAllByUserId(String userId);
 }

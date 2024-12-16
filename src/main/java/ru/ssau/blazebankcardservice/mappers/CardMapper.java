@@ -6,6 +6,8 @@ import org.mapstruct.factory.Mappers;
 import ru.ssau.blazebankcardservice.entities.Card;
 import ru.ssau.blazebankcardservice.entities.CardDTO;
 
+import java.util.List;
+
 @Mapper(componentModel = "spring")
 public interface CardMapper {
     CardMapper INSTANCE = Mappers.getMapper(CardMapper.class);
@@ -14,4 +16,6 @@ public interface CardMapper {
 
     @Mapping(target = "expirationDate", dateFormat = "yyyy-MM-dd")
     Card cardDTOToCard(CardDTO cardDTO);
+
+    List<CardDTO> listOfCardsToCardDTO(List<Card> cards);
 }
