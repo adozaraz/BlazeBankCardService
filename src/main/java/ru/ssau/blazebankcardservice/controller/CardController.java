@@ -7,6 +7,7 @@ import ru.ssau.blazebankcardservice.service.CardService;
 
 import java.text.ParseException;
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/card")
@@ -25,13 +26,13 @@ public class CardController {
         return cardService.getCardById(uuid);
     }
 
-    @GetMapping("/get/userId")
-    public CardDTO getCardByUserId(@RequestParam String userId) {
-        return cardService.getCardByUserId(userId);
+    @PostMapping("/verify/cvv")
+    public VerifiedStatusDTO verifyCardCvv(@RequestBody VerifyCardDTO verifyCardDTO) {
+        return cardService.verifyCardCvv(verifyCardDTO);
     }
 
     @GetMapping("/check")
-    public CardExistsDTO checkIfCardExists(@RequestParam String cardNumber, @RequestParam String accountNumber) {
+    public CardExistsDTO checkIfCardExists(@RequestParam String cardNumber, @RequestParam("accountNumber") Optional<String> accountNumber) {
         return cardService.checkIfCardExists(cardNumber, accountNumber);
     }
 

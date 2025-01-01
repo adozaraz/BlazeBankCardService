@@ -13,5 +13,7 @@ public interface CardRepository extends CrudRepository<Card, Integer> {
 
     Optional<Card> findCardByCardNumberAndAccountNumber(String cardNumber, String accountNumber);
 
+    Optional<Card> findCardByCardNumber(String cardNumber);
+
     List<Card> findAllByUserId(String userId);
 }

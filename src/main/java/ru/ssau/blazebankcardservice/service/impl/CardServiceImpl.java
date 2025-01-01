@@ -55,15 +55,22 @@ public class CardServiceImpl implements CardService {
     }
 
     @Override
-    public CardExistsDTO checkIfCardExists(String cardNumber, String accountNumber) {
-        Optional<Card> card = cardRepository.findCardByCardNumberAndAccountNumber(cardNumber, accountNumber);
+    public CardExistsDTO checkIfCardExists(String cardNumber, Optional<String> accountNumber) {
+
+        Optional<Card> card = Optional.empty();
+        if (accountNumber.isPresent()) {
+            card = cardRepository.findCardByCardNumberAndAccountNumber(cardNumber, accountNumber.get());
+        }
+        else {
+            card = cardRepository.findCardByCardNumber(cardNumber);
+        }
         System.out.println("Checking if card " + cardNumber + "is present");
         return new CardExistsDTO(card.isPresent());
     }
 
     @Override
     public BalanceUpdateDTO updateBalance(IncomingBalanceChangesDTO incomingBalanceChangesDTO) {
-        Optional<Card> cardChecker = cardRepository.findCardByCardNumberAndAccountNumber(incomingBalanceChangesDTO.getCardNumber(), incomingBalanceChangesDTO.getAccountNumber());
+        Optional<Card> cardChecker = cardRepository.findCardByCardNumber(incomingBalanceChangesDTO.getCardNumber());
 
         if (cardChecker.isEmpty()) throw new CardNotFoundException("Card " + incomingBalanceChangesDTO.getCardNumber() + " not found");
 
@@ -86,5 +93,14 @@ public class CardServiceImpl implements CardService {
         List<Card> userCards = cardRepository.findAllByUserId(userId);
 
         return cardMapper.listOfCardsToCardDTO(userCards);
+    }
+
+    @Override
+    public VerifiedStatusDTO verifyCardCvv(VerifyCardDTO verifyCardDTO) {
+        Optional<Card> card = cardRepository.findCardByCardNumber(verifyCardDTO.getCardNumber());
+
+        if (card.isEmpty()) throw new CardNotFoundException("Card " + verifyCardDTO.getCardNumber() + " not found");
+
+        return new VerifiedStatusDTO(card.get().getCvv().equals(verifyCardDTO.getCvv()));
     }
 }

@@ -3,7 +3,7 @@ server:
 
 spring:
   application:
-    name: blazebankcardservice
+    name: ${APP_NAME:blazebankcardservice}
   servlet:
     multipart:
       max-file-size: 15MB
@@ -24,7 +24,7 @@ spring:
     oauth2:
       resourceserver:
         jwt:
-          issuer-uri: ${KEYCLOAK_URL:http://192.168.0.20:8080}/realms/blazebank
+          issuer-uri: ${KEYCLOAK_URL:http://192.168.0.20:8080}/realms/${REALM_NAME:blazebank}
           jwk-set-uri: ${spring.security.oauth2.resourceserver.jwt.issuer-uri}/protocol/openid-connect/certs
 logging:
   level:

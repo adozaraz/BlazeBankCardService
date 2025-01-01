@@ -1,6 +1,5 @@
 package ru.ssau.blazebankcardservice.entities;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -10,7 +9,7 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class IncomingBalanceChangesDTO {
-    private Integer balanceChange;
+public class VerifyCardDTO {
     private String cardNumber;
+    private Integer cvv;
 }
